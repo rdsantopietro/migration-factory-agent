@@ -198,20 +198,52 @@ OpenTelemetry
 
 ```text
 migration-factory-agent/
-
-docs/
- ├── product/
- ├── architecture/
- └── adrs/
-
-src/
-
-tests/
-
-sandbox/
-
-examples/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   └── resources/
+│   └── test/
+│       ├── java/
+│       └── resources/
+├── config/
+│   └── checkstyle/
+├── docs/
+├── .ai/
+├── .mvn/
+├── target/
+├── .gitignore
+├── README.md
+├── pom.xml
+├── mvnw
+└── mvnw.cmd
 ```
+
+---
+
+# Development
+
+## Requirements
+
+- Java 25
+- Maven 3.9.x (or Maven Wrapper)
+
+## Build and Test
+
+```bash
+./mvnw clean verify
+```
+
+## Code Quality
+
+```bash
+./mvnw spotless:apply
+./mvnw spotless:check
+./mvnw checkstyle:check
+```
+
+## Code Coverage
+
+JaCoCo coverage reports are generated at `target/site/jacoco/index.html` when running `./mvnw verify`.
 
 ---
 
