@@ -224,14 +224,51 @@ migration-factory-agent/
 
 ## Requirements
 
-- Java 25
-- Maven 3.9.x (or Maven Wrapper)
+- JDK 25 or newer
+- Maven Wrapper (included; no local Maven installation required)
+
+If the default `java` command is older than JDK 25, point `JAVA_HOME` to a JDK 25+ installation before running Maven:
+
+```bash
+export JAVA_HOME=/path/to/jdk-25
+./mvnw clean verify
+```
 
 ## Build and Test
 
 ```bash
 ./mvnw clean verify
 ```
+
+The Maven Wrapper downloads and uses Apache Maven 3.9.9, so only a JDK 25+ installation is required on the machine.
+
+## Command Line
+
+Build the executable jar:
+
+```bash
+./mvnw clean package
+```
+
+Run the CLI through the wrapper (it builds the jar on first use):
+
+```bash
+./mfa --help
+./mfa analyze /path/to/repository
+```
+
+Or run the jar directly:
+
+```bash
+java -jar target/migration-factory-agent-0.0.1-SNAPSHOT.jar --help
+java -jar target/migration-factory-agent-0.0.1-SNAPSHOT.jar analyze /path/to/repository
+```
+
+Exit codes:
+
+- `0`: success
+- `1`: execution or validation error
+- `2`: invalid command-line usage
 
 ## Code Quality
 
