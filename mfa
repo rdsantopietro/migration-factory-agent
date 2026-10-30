@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+JAR="$SCRIPT_DIR/target/migration-factory-agent-0.0.1-SNAPSHOT.jar"
+
+if [ -n "${JAVA_HOME:-}" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+  JAVA_COMMAND="$JAVA_HOME/bin/java"
+else
+  JAVA_COMMAND="java"
+fi
+
+if ! command -v "$JAVA_COMMAND" >/dev/null 2>&1; then
+  echo "Java 25 or newer is required. Set JAVA_HOME or add java to PATH." >&2
+  exit 1
+fi
+
+if [ ! -f "$JAR" ]; then
+  "$SCRIPT_DIR/mvnw" -q -DskipTests package
+fi
+
+exec "$JAVA_COMMAND" -jar "$JAR" "$@"

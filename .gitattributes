@@ -1,0 +1,5 @@
+# Normalize line endings so the build and the POSIX CLI wrapper behave the same on every platform.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+mfa text eol=lf
