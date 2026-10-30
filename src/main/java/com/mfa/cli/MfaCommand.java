@@ -26,17 +26,16 @@ public class MfaCommand implements Runnable {
       final AssessmentEngine assessmentEngine,
       final PrintWriter outputWriter,
       final PrintWriter errorWriter) {
-    final CommandLine commandLine = new CommandLine(new MfaCommand());
-    commandLine.addSubcommand(
-        "analyze", new AnalyzeCommand(assessmentEngine, outputWriter, errorWriter));
+    final CommandLine commandLine = createCommandLine(assessmentEngine);
     commandLine.setOut(outputWriter);
     commandLine.setErr(errorWriter);
     return commandLine;
   }
 
   public static CommandLine createCommandLine(final AssessmentEngine assessmentEngine) {
-    return createCommandLine(
-        assessmentEngine, new PrintWriter(System.out, true), new PrintWriter(System.err, true));
+    final CommandLine commandLine = new CommandLine(new MfaCommand());
+    commandLine.addSubcommand("analyze", new AnalyzeCommand(assessmentEngine));
+    return commandLine;
   }
 
   public static void main(final String[] args) {
