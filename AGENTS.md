@@ -140,6 +140,8 @@ public record RepositoryAssessment(
 - Avoid excessive vertical spacing.
 - Keep simple constructors, records, and method signatures on a single line.
 - Use multiline formatting only when line length or readability requires it.
+- Spotless runs `google-java-format`, which enforces a 100-column limit. Keep any statement that fits in 100 columns on a single line; the formatter splits longer lines automatically, so never wrap manually.
+- The Checkstyle 120-column limit is only an upper bound, not a target for manual line breaks.
 
 Preferred:
 
@@ -224,6 +226,14 @@ public class AnalyzeCommand {
   }
 }
 ```
+
+### Lombok
+
+- Lombok is allowed only for `@Slf4j` and `@RequiredArgsConstructor`.
+- The version is managed by the Spring Boot parent; do not pin it in `pom.xml`.
+- Annotation processing is configured in `maven-compiler-plugin` through `<proc>full</proc>` plus `annotationProcessorPaths`, which is required on JDK 23 and newer.
+- Lombok stays `optional` and is excluded from the Spring Boot jar.
+- Tests may use plain constructors or inheritance; Lombok is not required there.
 
 ### General Style
 
